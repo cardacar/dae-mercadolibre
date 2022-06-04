@@ -7,6 +7,7 @@ import InputBase from "@mui/material/InputBase";
 import Button from "@mui/material/Button";
 import { getAllProducts } from "../../service/mercadolibreService";
 import CardProduct from "../../components/CardProduct";
+/* import CardOnlyProduct from "../../components/CardOnlyProduct"; */
 import {Grid} from '@mui/material'
 
 const Search = styled("div")(({ theme }) => ({
@@ -34,14 +35,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Products = () => {
   const [input, setInput] = useState("");
   const [allDataResults, setAllDataResults] = useState([]);
+/*   const [onlyProduct, setOnlyProduct] = useState({}) */
 
   const searchProduct = (searchProductName) => {
+    /* setAllDataResults([])
+    setAllDataResults([]) */
     getAllProducts(searchProductName).then((res) =>{
-        console.log(res.data.results)
+        //console.log(res.data.results)
       setAllDataResults(res.data.results)
     }
     );
   };
+
+  
 
   return (
     <Fragment>
@@ -65,11 +71,16 @@ const Products = () => {
           <Grid container spacing={2} sx={{marginTop: '2rem'}}>
               {allDataResults.map((product, index)=> (
               <Grid item key={index}>
-                  <CardProduct product={product}/>
+                  <CardProduct product={product} setAllDataResults={setAllDataResults} /* setOnlyProduct={setOnlyProduct} *//>
               </Grid>
               ))}
           </Grid>
       ) : null}
+      {/* {onlyProduct.length > 0 ? (
+      <Fragment>
+        <CardOnlyProduct product={onlyProduct}/>
+      </Fragment>
+      ) : null} */}
     </Fragment>
   );
 };

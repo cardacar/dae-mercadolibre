@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useParams} from 'react-router-dom'
+
 
 const ProductDetail = () => {
+  useEffect(() => {
+    console.log(useParams)
+  }, [])
+  
   return (
-    <div>ProductDetail</div>
+    <div style={{marginTop: "100px"}}>ProductDetail</div>
   )
 }
 
