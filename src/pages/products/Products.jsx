@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -7,6 +7,7 @@ import InputBase from "@mui/material/InputBase";
 import Button from "@mui/material/Button";
 import { getAllProducts } from "../../service/mercadolibreService";
 import CardProduct from "../../components/CardProduct";
+import { InitialContext } from "../../context/Context";
 /* import CardOnlyProduct from "../../components/CardOnlyProduct"; */
 import {Grid} from '@mui/material'
 
@@ -33,6 +34,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Products = () => {
+  const {productContext, setProductContext} = useContext(InitialContext)
   const [input, setInput] = useState("");
   const [allDataResults, setAllDataResults] = useState([]);
 /*   const [onlyProduct, setOnlyProduct] = useState({}) */
@@ -52,7 +54,7 @@ const Products = () => {
   return (
     <Fragment>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ bgcolor: "#fff159" }}>
+        <AppBar position="static">
           <Toolbar>
             <Search>
               <StyledInputBase
@@ -61,7 +63,7 @@ const Products = () => {
                 inputProps={{ "aria-label": "search" }}
                 onChange={(e) => setInput(e.target.value)}
               />
-              <Button onClick={() => searchProduct(input)}>Buscar</Button>
+              <Button color="secondary" onClick={() => searchProduct(input)}>Buscar</Button>
             </Search>
             <Box sx={{ flexGrow: 1 }} />
           </Toolbar>
