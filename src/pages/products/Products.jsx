@@ -1,86 +1,49 @@
-import React, { Fragment, useState } from "react";
-import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
+import React, { Fragment, useState, useContext, useEffect } from "react";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import InputBase from "@mui/material/InputBase";
-import Button from "@mui/material/Button";
-import { getAllProducts } from "../../service/mercadolibreService";
-import CardProduct from "../../components/CardProduct";
+import { InitialContext } from "../../context/Context";
 /* import CardOnlyProduct from "../../components/CardOnlyProduct"; */
-import {Grid} from '@mui/material'
+import { Grid, Paper } from "@mui/material";
+import NewCardProduct from "../../components/NewCardProduct";
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 1),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 1),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(1)})`,
-    //paddingRight: "5px",
-    transition: theme.transitions.create("width"),
-    width: "100%",
-  },
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
 }));
 
 const Products = () => {
-  const [input, setInput] = useState("");
+  const { productContext } = useContext(InitialContext);
   const [allDataResults, setAllDataResults] = useState([]);
-/*   const [onlyProduct, setOnlyProduct] = useState({}) */
 
-  const searchProduct = (searchProductName) => {
-    /* setAllDataResults([])
-    setAllDataResults([]) */
-    getAllProducts(searchProductName).then((res) =>{
-        //console.log(res.data.results)
-      setAllDataResults(res.data.results)
+  useEffect(() => {
+    if (productContext.allProducts.length > 0) {
+      setAllDataResults(productContext.allProducts)
     }
-    );
-  };
 
-  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allDataResults, productContext.allProducts]);
 
   return (
     <Fragment>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ bgcolor: "#fff159" }}>
-          <Toolbar>
-            <Search>
-              <StyledInputBase
-                placeholder="Buscar producto"
-                value={input}
-                inputProps={{ "aria-label": "search" }}
-                onChange={(e) => setInput(e.target.value)}
-              />
-              <Button onClick={() => searchProduct(input)}>Buscar</Button>
-            </Search>
-            <Box sx={{ flexGrow: 1 }} />
-          </Toolbar>
-        </AppBar>
-      </Box>
-      {allDataResults.length > 0 ? (
-          <Grid container spacing={2} sx={{marginTop: '2rem'}}>
-              {allDataResults.map((product, index)=> (
-              <Grid item key={index}>
-                  <CardProduct product={product} setAllDataResults={setAllDataResults} /* setOnlyProduct={setOnlyProduct} *//>
-              </Grid>
-              ))}
-          </Grid>
-      ) : null}
-      {/* {onlyProduct.length > 0 ? (
-      <Fragment>
-        <CardOnlyProduct product={onlyProduct}/>
-      </Fragment>
-      ) : null} */}
+      <Grid
+        container
+        spacing={3}
+        sx={{ paddingLeft: "10rem", marginTop: "1px", width: "100%", height: "100%" }}
+      >
+        <Grid item xs={3}>
+          <Box sx={{ flexGrow: 1 }}>
+            <Item>Filtros</Item>
+          </Box>
+        </Grid>
+        <Grid item xs={8}>
+          {allDataResults.length > 0 ? (
+            allDataResults.map((item, index)=><NewCardProduct item={item} key={index}/>)
+          ) : null}
+        </Grid>
+      </Grid>
     </Fragment>
   );
 };
