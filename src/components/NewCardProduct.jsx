@@ -8,6 +8,7 @@ import { Divider } from "@mui/material";
 import { InitialContext } from "../context/Context";
 import { formatNumber } from "../utils/formatNumber";
 import { getProductById } from "../service/mercadolibreService";
+import { useNavigate } from "react-router-dom";
 
 const Img = styled("img")({
   margin: "auto",
@@ -18,11 +19,13 @@ const Img = styled("img")({
 
 const NewCardProduct = ({ item }) => {
   const { productContext, setProductContext } = useContext(InitialContext);
+  let navigate = useNavigate()
 
-  const searchOnlyProduct = (id) => {
-    getProductById(id).then((res) => {
+  const searchOnlyProduct = (item) => {
+    getProductById(item.id).then((res) => {
       setProductContext({ ...productContext, detailProduct: res.data });
     });
+    navigate(`/product/${item.title}`)
   };
 
   return (
@@ -39,7 +42,7 @@ const NewCardProduct = ({ item }) => {
         <Grid item>
           <ButtonBase
             sx={{ width: "160px", height: "160px" }}
-            onClick={() => searchOnlyProduct(item.id)}
+            onClick={() => searchOnlyProduct(item)}
           >
             <Img
               alt={`${item ? item.title : "Imagen"}`}
@@ -56,7 +59,7 @@ const NewCardProduct = ({ item }) => {
                 gutterBottom
                 variant="subtitle1"
                 component="div"
-                onClick={() => console.log(productContext)}
+                onClick={() => searchOnlyProduct(item)}
                 sx={{ cursor: "pointer" }}
               >
                 {`${item ? item.title : "Titulo no disponible"}`}

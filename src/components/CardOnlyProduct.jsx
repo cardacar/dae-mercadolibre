@@ -1,21 +1,36 @@
 import React from 'react'
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import ButtonBase from '@mui/material/ButtonBase';
+
+const Img = styled('img')({
+  margin: 'auto',
+  display: 'block',
+  maxWidth: '100%',
+  maxHeight: '100%',
+});
 
 const CardOnlyProduct = ({product}) => {
   return (
-    <Card sx={{ display: "flex", margin: "1rem", width: "100%" }}>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContent sx={{ width: "100%" }}>
-          <Typography component="div" variant="h5">
-            {console.log(product)}
-          </Typography>
-        </CardContent>
-      </Box>
-    </Card>
+    <Paper
+      sx={{
+        p: 2,
+        margin: 'auto',
+        maxWidth: "800px",
+        flexGrow: 1,
+        backgroundColor: '#fff',
+      }}
+      elevation={0}
+    >
+      <Grid container spacing={2}>
+        <Grid item>
+          <ButtonBase sx={{ width: "500px", height: "500px" }}>
+            <Img alt={product.pictures ? product.pictures[0].id : "https://dummyimage.com/500x500/000/fff"} src={product.pictures ? product.pictures[0].url: "https://dummyimage.com/500x500/000/fff"} />
+          </ButtonBase>
+        </Grid>
+      </Grid>
+    </Paper>
   )
 }
 
