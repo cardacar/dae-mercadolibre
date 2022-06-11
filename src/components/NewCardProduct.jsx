@@ -68,11 +68,6 @@ const NewCardProduct = ({ item }) => {
                 {item ? formatNumber(item.price) : "Precio no disponible"}
               </Typography>
             </Grid>
-            {/* <Grid item>
-              <Typography variant="body2">
-                ranking
-              </Typography>
-            </Grid> */}
           </Grid>
         </Grid>
       </Grid>
