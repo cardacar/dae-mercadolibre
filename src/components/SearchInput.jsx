@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import {getAllProducts} from '../service/mercadolibreService'
+import { getAllProducts } from "../service/mercadolibreService";
 
 const SearchContainer = styled("div")(({ theme }) => ({
   display: "flex",
@@ -41,18 +41,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const SearchInput = () => {
   const { productContext, setProductContext } = useContext(InitialContext);
-  
+
   const getAllProductSearch = (search) => {
-    getAllProducts(search).then(res=>{
-      setProductContext({...productContext, allProducts: res.data.results})
-    })
-  }
+    getAllProducts(search).then((res) => {
+      setProductContext({ ...productContext, allProducts: res.data.results });
+    });
+  };
 
   const handleKeyPress = (event) => {
-    if(event.key==='Enter'){
-      getAllProductSearch(productContext.searchInputText)
+    if (event.key === "Enter") {
+      getAllProductSearch(productContext.searchInputText);
     }
-  }
+  };
 
   return (
     <Box display="flex">
@@ -65,7 +65,7 @@ const SearchInput = () => {
               searchInputText: e.target.value,
             })
           }
-          onKeyUp={(e)=> handleKeyPress(e)}
+          onKeyUp={(e) => handleKeyPress(e)}
         />
         <SearchIconWrapper>
           <Divider orientation="vertical" flexItem />

@@ -2,7 +2,6 @@ import React, { Fragment, useState, useContext, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { InitialContext } from "../../context/Context";
-/* import CardOnlyProduct from "../../components/CardOnlyProduct"; */
 import { Grid, Paper } from "@mui/material";
 import NewCardProduct from "../../components/NewCardProduct";
 
