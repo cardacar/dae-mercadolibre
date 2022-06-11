@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 /* import Products from "./pages/products/Products";
 import ProductDetail from "./pages/productDetail/ProductDetail";
 import { Switch, Route } from "react-router-dom"; */
-import {InitialContext} from './context/Context'
+import {InitialContext, initialState} from './context/Context'
 import { ThemeProvider } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
 import {Styles} from './assets/theme'
@@ -10,11 +10,6 @@ import Router from "./routes/Router";
 
 function App() {
 
-  const initialState = {
-    searchInputText: "",
-    allProducts: [],
-    detailProduct: []
-  }
   const [productContext, setProductContext] = useState(initialState)
   return (
     <Fragment>
