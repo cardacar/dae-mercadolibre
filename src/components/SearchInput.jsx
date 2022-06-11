@@ -44,7 +44,6 @@ const SearchInput = () => {
   
   const getAllProductSearch = (search) => {
     getAllProducts(search).then(res=>{
-      console.log(res.data.results)
       setProductContext({...productContext, allProducts: res.data.results})
     })
   }

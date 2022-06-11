@@ -20,8 +20,8 @@ const Router = () => {
       </header>
       <section>
         <Routes>
-          <Route path="/admin" element={<Product />} />
-          <Route path="/" element={<ProductDetail />} />
+          <Route path="/" element={<Product />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </section>
     </Fragment>

@@ -19,8 +19,6 @@ const Products = () => {
   const [allDataResults, setAllDataResults] = useState([]);
 
   useEffect(() => {
-    console.log(productContext)
-    console.log(allDataResults)
     if (productContext.allProducts.length > 0) {
       setAllDataResults(productContext.allProducts)
     }
